@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TasteVille - Menu</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-image: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=1200');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 55px;
+            font-weight: 900;
+            color: #fa6501;
+            text-align: center;
+            padding: 15px 40px;
+            background: black;
+            display: inline-block;
+            border-radius: 12px;
+            letter-spacing: 4px;
+            text-shadow: 3px 3px 6px black;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: #d35400;
+            text-shadow: 1px 1px 2px white;
+            font-size: 26px;
+            text-align: center;
+        }
+
+        table {
+            width: 70%;
+            background: white;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table, th, td {
+            border: 2px solid #d35400;
+        }
+
+        th {
+            font-size: 22px;
+            font-weight: bold;
+            background: #d35400;
+            color: white;
+            padding: 14px;
+        }
+
+        td {
+            padding: 12px;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 6px 12px;
+            background-color: #d35400;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            border-radius: 6px;
+            margin: 2px;
+        }
+
+        .minus {
+            background: #b33939;
+        }
+
+        #cartCountBox, #amountBox {
+            width: 70%;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #d35400;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+
+    <h1 class="title">TASTEVILLE</h1>
+
+    <h2>📌 Our Menu</h2>
+
+    <table>
+        <tr>
+            <th>Food Item</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+
+        <tr>
+            <td>Chicken Biryani</td><td>₹180</td>
+            <td>
+                <button onclick="increase(180)">+</button>
+                <button class='minus' onclick="decrease(180)">-</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Veg Fried Rice</td><td>₹120</td>
+            <td>
+                <button onclick="increase(120)">+</button>
+                <button class='minus' onclick="decrease(120)">-</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Paneer Butter Masala</td><td>₹150</td>
+            <td>
+                <button onclick="increase(150)">+</button>
+                <button class='minus' onclick="decrease(150)">-</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Chocolate Milkshake</td><td>₹90</td>
+            <td>
+                <button onclick="increase(90)">+</button>
+                <button class='minus' onclick="decrease(90)">-</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Mutton Curry</td><td>₹220</td>
+            <td>
+                <button onclick="increase(220)">+</button>
+                <button class='minus' onclick="decrease(220)">-</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Masala Dosa</td><td>₹80</td>
+            <td>
+                <button onclick="increase(80)">+</button>
+                <button class='minus' onclick="decrease(80)">-</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Margherita Pizza</td><td>₹200</td>
+            <td>
+                <button onclick="increase(200)">+</button>
+                <button class='minus' onclick="decrease(200)">-</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Chicken Shawarma</td><td>₹110</td>
+            <td>
+                <button onclick="increase(110)">+</button>
+                <button class='minus' onclick="decrease(110)">-</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Gobi Manchurian</td><td>₹100</td>
+            <td>
+                <button onclick="increase(100)">+</button>
+                <button class='minus' onclick="decrease(100)">-</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Cold Coffee</td><td>₹70</td>
+            <td>
+                <button onclick="increase(70)">+</button>
+                <button class='minus' onclick="decrease(70)">-</button>
+            </td>
+        </tr>
+
+    </table>
+
+    <h2>🛒 Cart Summary</h2>
+
+    <div id="cartCountBox">Items: 0</div>
+    <div id="amountBox">Total Amount: ₹0</div>
+
+    <button onclick="orderNow()" 
+        style="padding:12px 20px;
+        background:#27ae60;
+        color:white; 
+        border:none; 
+        border-radius:6px; 
+        font-size:16px; 
+        margin-bottom:30px;">
+        Order Now
+    </button>
+
+    <a href="Tastevillefeedback.html">
+    <button>Feedback</button>
+    </a>
+
+    <script>
+       
+    let count = 0;
+    let totalAmount = 0;
+
+    function increase(price) {
+        count++;
+        totalAmount += price;
+
+        updateDisplay();
+    }
+
+    function decrease(price) {
+        if (count > 0 && totalAmount - price >= 0) {
+            count--;
+            totalAmount -= price;
+        }
+
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        document.getElementById("cartCountBox").innerText = "Items: " + count;
+        document.getElementById("amountBox").innerText = "Total Amount: ₹" + totalAmount;
+    }
+
+    function orderNow() {
+        if (count === 0) {
+            alert("Please add items before ordering!");
+            return;
+        }
+
+        alert("Order Placed!\nItems: " + count + "\nTotal Amount: ₹" + totalAmount);
+
+        count = 0;
+        totalAmount = 0;
+
+        updateDisplay();
+    }
+</script>
+
+    
+
+</body>
+</html>
